@@ -1,36 +1,23 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title></title>
+<link rel="stylesheet" href="css/sample.css">
 </head>
 <body>
-<form action="get_confirm.php" method="get">
-	名前: <input type="text" name="name" />
-	年齢: <input type="text" name="age" />
-	<input type="submit" />
-</form>
-<form action="post_confirm.php" method="post">
-	名前: <input type="text" name="name" />
-	年齢: <input type="text" name="age" />
-	<input type="submit" />
-</form>
 
-<form action="math_confirm.php" method="post">
-	<input type="text" name="m1" />+<input type="text" name="m2" />
-	<input type="submit" />
-</form>
+<header>
+<h1>入力内容の確認</h1>
+</header>
 
-<ul>
-<li><a href="hensu.php">変数</a></li>
-<li><a href="hairetsu.php">配列</a></li>
-<li><a href="seigyo.php">制御構文</a></li>
-<li><a href="kansu.php">関数</a></li>
-</ul>
+<main>
+<div class="a_form">
+<a href="input_enq.php">アンケートに答える</a><br><br>
+<a href="show_enp.php">アンケート結果</a>
+</div>
+</main>
 
-<ul>
-<li><a href="write.php">ファイル書き込み</a></li>
-<li><a href="read.php">ファイル読み込む</a></li>
-</ul>
-
+<footer><small>Program Maker : Hideto Ushiama </small></footer>
 </body>
 </html>
