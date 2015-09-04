@@ -12,8 +12,10 @@ $age = $_POST["age"];
 $sex = $_POST["sex"];
 $eml = $_POST["eml"];
 $inst2 = $_POST["inst2"];
+$da = $_POST["date"];
+$loc = $_POST["loc"];
 
-$l_data = $name.",".$age.",".$sex.",".$eml.",".$inst2;
+$l_data = $da.",".$loc.",".$name.",".$age.",".$sex.",".$eml.",".$inst2;
 flock($file, LOCK_EX);			// ファイルロック
 fputs($file, $l_data. PHP_EOL);
 flock($file, LOCK_UN);			// ファイルロック解除
@@ -28,6 +30,8 @@ fclose($file);
 <main>
 <h2>アンケートに参加ありがとうございました。</h1>
 <div class="waku">
+<div class="left">投稿時間</div><div class="right"><?=$da?></div>
+<div class="left">投稿位置</div><div class="right"><?=$loc?></div>
 <div class="left">名前</div><div class="right"><?=$name?></div>
 <div class="left">年齢</div><div class="right"><?=$age?></div>
 <div class="left">性別</div><div class="right"><?=$sex?></div>
