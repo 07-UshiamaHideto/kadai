@@ -48,7 +48,7 @@ footer{
 }
 
 .a_form{
-    width:400px;
+    width:450px;
     font-size:16px;
     margin:15px auto 0 auto;
 //    overflow:hidden;
@@ -99,7 +99,7 @@ footer{
 }
 
 .a_right{
-    width:320px;
+    width:370px;
     padding:5px 0 5px 20px;
     text-align:left;
     float:left;
@@ -107,6 +107,31 @@ footer{
 
 .result{
     font-size:16px;
-    width:600px;
+    width:550px;
     margin:10px auto;
+}
+
+.set1{
+    width:600px;
+    border-top:1px dotted #aaa;
+    margin:15px auto 0 auto;
+    padding-top:5px;
+    font-size:16px;
+    text-align:center;
+}
+
+.total_1{
+    width:550px;
+    margin:0 auto;
+    padding-top:10px;
+    font-size:16px;
+    text-align:left;
+}
+
+.total_2{
+    width:550px;
+    margin:0 auto;
+    padding-top:10px;
+    font-size:16px;
+    text-align:left;
 }
