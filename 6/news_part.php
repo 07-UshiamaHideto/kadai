@@ -2,7 +2,7 @@
 
 //echo "aaaa";
 $pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
-$sql = "SELECT * FROM news ORDER BY news_id DESC LIMIT 5";
+$sql = "SELECT * FROM news ORDER BY create_date DESC LIMIT 5";
 //$sql = "SELECT * FROM enq";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();

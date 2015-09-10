@@ -21,9 +21,10 @@ $db_set = "WHERE news_id=".$id;
 }elseif(isset($_GET["date"])){
 $date = $_GET["date"];
 //echo "date".$date;
-$db_set = "WHERE create_date=".$date;
+$db_set = "WHERE create_date BETWEEN '".$date." 00:00:00.000000'  AND '".$date." 23:59:59.000000' ";
+//echo $db_set;
 }else{
-$db_set = "ORDER BY news_id DESC";
+$db_set = "ORDER BY create_date DESC";
 }
 
 $pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
