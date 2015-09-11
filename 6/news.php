@@ -37,7 +37,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //var_dump($results);
 foreach($results as $row) {
 //	var_dump($row);
-//	echo "<span class=\"section-title-ja text-center\">".mb_substr($row["create_date"],0,10)."</span>";
+//	echo "<span class=\"section-title-news text-center\">".mb_substr($row["create_date"],0,10)."</span>";
 
 	echo "</h2>";
 	echo "<article class=\"news-detail\">";
@@ -45,7 +45,7 @@ foreach($results as $row) {
 
 	echo "<dd class=\"news-title\">".$row["news_title"]."</dd>";
 	echo "<dd>".$row["news_detail"]."</dd>";
-	echo "<span class=\"section-title-ja text-center\">".$row["create_date"]." writen by ".$row["author"]."</span>";
+	echo "<span class=\"section-title-news text-center\">".$row["create_date"]." author by ".$row["author"]."</span>";
 	echo "</dl>";
 	echo "</article>";
 }
