@@ -9,28 +9,27 @@
     
     <section class="news contents-box">
         <h2 class="section-title text-center">
-            <span class="section-title__yellow">News</span>
+            <span class="section-title__yellow">News Search</span>
+
 
 <div class="search_a">
 <form action="search.php" method="post">
-<span class="serach_t">News Search : </span><input type="text" name="search" /><input type="submit" value="SEARCH" />
+<span class="serach_t">News Search:</span><input type="text" name="search" /><input type="submit" value="SEARCH" />
 </div>
 
 <?php
 
-if(isset($_GET["id"])){
-$id = $_GET["id"];
+if($_POST["search"] ==""){
+
+echo "<div class=\"text_n\">入力ありません。</div>";
+
+}elseif(isset($_POST["search"])){
+
+$se = $_POST["search"];
+$num = 0;
 //echo "id".$id;
-$db_set = "WHERE news_id=".$id;
+$db_set = "WHERE `news_title` LIKE '%".$se."%' OR `news_detail` LIKE '%".$se."%'";
 //echo $db_set;
-}elseif(isset($_GET["date"])){
-$date = $_GET["date"];
-//echo "date".$date;
-$db_set = "WHERE create_date BETWEEN '".$date." 00:00:00.000000'  AND '".$date." 23:59:59.000000' ";
-//echo $db_set;
-}else{
-$db_set = "ORDER BY create_date DESC";
-}
 
 $pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
 //$sql = "SELECT * FROM news ORDER BY news_id DESC LIMIT 5";
@@ -57,8 +56,16 @@ foreach($results as $row) {
 	echo "<span class=\"section-title-news text-center\">".$row["create_date"]." author by ".$row["author"]."</span>";
 	echo "</dl>";
 	echo "</article>";
+
+	$num=$num+1;
+
 }
+echo "<div class=\"search_n\">｢".$se."｣検索件数：".$num."</div>";
+
 $pdo = null;
+
+}
+
 ?>
  <!--         <span class="section-title-ja text-center">日付</span>
         </h2>

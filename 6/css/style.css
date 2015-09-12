@@ -184,7 +184,7 @@ news-parts
     margin-right:43px;
 }
 .view-detail{
-    margin-top:56px;
+    margin-top:35px;
 }
 /*---------------------
 cource-parts
@@ -273,4 +273,24 @@ label{
     right: 20px;
     bottom:20px;
 
+}
+
+.search_a{
+    margin:25px auto 0 auto;
+    width:600px;
+    text-align:right;
+}
+
+.search_a input{
+    margin-left:5px;
+    padding:3px;
+}
+
+.text_n{
+    margin-top:25px;
+}
+
+.search_n{
+    margin-top:25px;
+    text-align:center;
 }
