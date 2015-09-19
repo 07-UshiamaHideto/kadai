@@ -8,7 +8,7 @@ $lo = "";
 
 if (isset($_SESSION["login_id"]) and $_SESSION["login_id"] == $ok) { 
  
- $lo .="ログイン中。";
+ $lo .="ログイン中 <span class=\"logout_w\"><a href=\"logout.php\">ログアウト</a></span>";
 } else {
  header("Location:login.php");
 } 

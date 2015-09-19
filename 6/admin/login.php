@@ -1,4 +1,3 @@
-<?php include("login_j.php"); ?>
 <?php
  $h_title="チーズアカデミー　｜　ログインページ";
  include("head.php");

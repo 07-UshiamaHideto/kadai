@@ -20,7 +20,7 @@ if ($l_id == $id and $l_pass == $pass) {
 
 $_SESSION["login_id"] = "sucess";
  $res .="ログインに成功しました。";
- $res .="<li><a href=\"index.php\">管理ページTop</a></li>";
+ $res .="<li><a href=\"index.php\">インデックスページ</a></li>";
 
 }else{
 
@@ -35,12 +35,12 @@ $_SESSION["login_id"] = "sucess";
 <div class="main">
 
 <header>
-<h1>チーズアカデミー<span>お知らせ・更新情報 管理画面</span></h1>
+<h1>チーズアカデミー<span>お知らせ・更新情報 ログイン</span></h1>
 </header>
 
 <ul>
   <?php echo $res ?>
-<!--  li><a href="index.php">管理ページTop</a></li  -->
+<!--  li><a href="index.php">インデックスページ</a></li  -->
 </ul>
 </div>
 
