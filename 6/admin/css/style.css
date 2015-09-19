@@ -175,3 +175,21 @@ label{
     margin-top:25px;
     text-align:center;
 }
+
+
+.page_l{
+    margin:0 5px;
+}
+
+.page_n{
+    margin:0 5px;
+}
+
+.page_e{
+    margin:0 3px;
+    font-weight:bold;
+}
+
+.page_o {
+    margin:0 3px;
+}
