@@ -9,6 +9,9 @@ $l_pass = $_POST["password"];
 $id = "admin";
 $pass = "password";
 
+ $h_title="チーズアカデミー　｜　ログイン";
+ include("head.php");
+
 // HTML出力用の変数 $view を宣言
 $res = "";
 
@@ -27,15 +30,20 @@ $_SESSION["login_id"] = "sucess";
 
 ?>
 
-<html>
-<head>
-<meta charset="utf-8">
-<title></title>
 </head>
 <body>
+<div class="main">
+
+<header>
+<h1>チーズアカデミー<span>お知らせ・更新情報 管理画面</span></h1>
+</header>
+
 <ul>
   <?php echo $res ?>
 <!--  li><a href="index.php">管理ページTop</a></li  -->
 </ul>
+</div>
+
+<?php include("footer.php"); ?>
 </body>
 </html>

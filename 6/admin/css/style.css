@@ -167,6 +167,12 @@ label{
     padding:3px;
 }
 
+.search_a form{
+    margin: 5px 0 15px 0;
+    padding:3px 0;
+    border-bottom:1px solid #aaa;
+}
+
 .text_n{
     margin-top:25px;
 }

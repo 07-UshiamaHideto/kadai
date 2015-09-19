@@ -10,6 +10,6 @@ if (isset($_SESSION["login_id"]) and $_SESSION["login_id"] == $ok) {
  
  $lo .="ログイン中。";
 } else {
- $lo .="ログインしていません。";
+ header("Location:login.php");
 } 
 ?> 
