@@ -16,10 +16,10 @@
 <?php include("cate_part.php"); ?>
 </div>
 <div class="con">
-<?php include("push_part.php"); ?>
+<?php include("detail.php"); ?>
 <?php include("news_part.php"); ?>
 </div>
-</div>r
+</div>
 
 <?php include("footer.php"); ?>
 </body>

@@ -16,8 +16,7 @@
 <?php include("cate_part.php"); ?>
 </div>
 <div class="con">
-<?php include("push_part.php"); ?>
-<?php include("list_part.php"); ?>
+<?php include("l_news.php"); ?>
 </div>
 </div>r
 
