@@ -1,11 +1,13 @@
 <?php
-$ca1 = "";$ca2 = "";$ca3 = "";$ca4 = "";
-$flg1 = "";$flg2 = "";
+// HTML出力用の変数 $view を宣言
+ $view = "";
+ $s_flg = "";
+ $i_flg = "";
 
 if(isset($_GET["id"])){
 	$id = $_GET["id"];
 //	echo "id".$id;
-	$db_set = "WHERE news_id=".$id;
+	$db_set = "WHERE s_id=".$id;
 //	echo $db_set;
 
 	$pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
@@ -14,7 +16,7 @@ if(isset($_GET["id"])){
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+//	var_dump($results);
 	foreach($results as $row) {
 //	echo "<PRE style=\"text-align:left;\">";var_dump($row); echo "</PRE>";
 
@@ -23,48 +25,58 @@ if(isset($_GET["id"])){
 		$detail = $row["s_detail"];
 		$s_index = $row["s_outline"];
 		$author = $row["author"];
+		$category = $row["category"];
 //	echo "p1:".$id.$title.$detail;
 
+		$s_flg .="<select  name=\"flg\"><option value=\"公開\"";
 		if($row["show_flg"]==1){
-			$flg1 = " selected";
+			$s_flg .= " selected>公開</option><option value=\"下書き\">下書き</option>";
 		}else{
-			$flg2 = " selected";
+			$s_flg .= ">公開</option><option value=\"下書き\" selected>下書き</option>";
 		}
+		$s_flg .="</select>";
 
+		$i_flg .="<select  name=\"index\"><option value=\"有\"";
 		if($row["s_index"]==1){
-			$si1 = " selected";
+			$i_flg .= " selected>有</option><option value=\"無\">無</option>";
 		}else{
-			$si2 = " selected";
+			$i_flg .= ">有</option><option value=\"無\" selected>無</option>";
 		}
-//	echo "p2:".$flg1.$flg2;
+		$i_flg .="</select>";
 
 		$dt = explode(" ", $row["create_date"]);
 		$date = $dt[0];$time = $dt[1];
 
 		$sdt = explode(" ", $row["open_date"]);
-		$date = $sdt[0];$time = $sdt[1];
+		$s_date = $sdt[0];$s_time = $sdt[1];
 
 		$edt = explode(" ", $row["close_date"]);
-		$date = $edt[0];$time = $edt[1];
+		$e_date = $edt[0];$e_time = $edt[1];
 
 //	echo "p3:".$date. $time;
 
-		$cate = $row["category"];
-		if(strstr($cate, 'News')) {
-			$ca1 = " checked";
-		}
-		if(strstr($cate, 'Exam')) {
-			$ca2 = " checked";
-		}
-		if(strstr($cate, 'Column')) {
-			$ca3 = " checked";
-		}
-		if(strstr($cate, 'Other')) {
-			$ca4 = " checked";
-		}
-//	echo "p4:".$ca1.$ca2.$ca3.$ca4;
-
 	}
+
+ $db_set = "ORDER BY c_id";
+$sql = "SELECT * FROM s_category ".$db_set;
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//var_dump($results);
+
+foreach($results as $row) {
+//	echo "id: ".$category." ".$row["c_id"];
+ 	if($category == $row["c_id"]){
+		$select = " checked";
+	}else{
+		$select = "";
+	}
+
+	$view .= "<input type=\"checkbox\" name=\"category[]\" value=\"".$row["c_id"]."\".$select />".$row["ca_name"];
+
+}
+
 	$pdo = null;
 
 }
@@ -100,14 +112,14 @@ if(isset($_GET["id"])){
 <form action="update_execute.php" method="post">
 	title： <input type="text" name="title" value="<?php echo $title ?>" />
 	　author： <input type="text" name="author" value="<?php echo $author ?>" size="15" /><br>
-	category： <input type="checkbox" name="category[]" value="News" <?php echo $ca1 ?>/>News <input type="checkbox" name="category[]" value="Exam" <?php echo $ca2 ?>/>Exam <input type="checkbox" name="category[]" value="Column" <?php echo $ca3 ?>/>Column<input type="checkbox" name="category[]" value="Other" <?php echo $ca4 ?>/>Other<br>
+	category： <?php echo $view ?><br>
 	detail： <br><textarea type="text" name="detail" cols="60" rows="15" /><?php echo $detail ?></textarea><br>
-	show： <select  name="flg"><option>公開</option<?php echo $flg1 ?>><option>下書き</option<?php echo $flg2 ?>></select><br>
-	show index： <select  name="index"><option>有</option selected<?php echo $si1 ?>><option>無</option<?php echo $si2 ?>></select><br>
-	create date： <input type="text" name="date" value="<?php echo $date ?>" size="10"/> <input type="text" name="time" value="<?php echo $time ?>" size="10"/><br>
-	show date： <input type="text" name="s_date" value="<?php echo $sda ?>" size="10"/> <input type="text" name="s_time" value="<?php echo $sta ?>" size="10"/><br>
-	end date： <input type="text" name="e_date" value="<?php echo $eda ?>" size="10"/> <input type="text" name="e_time" value="23:59:59" size="10"/><br>>
-	<input type="hidden" name="id" value="<?php echo $eta ?>" />
+	show： <?php echo $s_flg ?>
+	show index： <?php echo $i_flg ?><br>
+	create date： <input type="text" name="date" value="<?php echo $date ?>" /> <input type="text" name="time" value="<?php echo $time ?>" /><br>
+	show date： <input type="text" name="s_date" value="<?php echo $s_date ?>" /> <input type="text" name="s_time" value="<?php echo $s_time ?>" />
+	　end date： <input type="text" name="e_date" value="<?php echo $e_date ?>" /> <input type="text" name="e_time" value="<?php echo $e_time ?>" /><br>
+	<input type="hidden" name="id" value="<?php echo $e_time ?>" />
 	<input type="submit" />
 </form>
 </div>

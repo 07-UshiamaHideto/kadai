@@ -1,3 +1,3 @@
-<footer>
+<div class="footer">
 <small>Program Maker : Hideto Ushiama </small>
-</footer>
+</div>

@@ -73,7 +73,7 @@ foreach($results as $row) {
 	$view .= "<article class=\"news-detail\">";
 	$view .= "<dl>";
 	$view .= "<a href=\"news.php?id=".$row["s_id"]."\">";
-	$view .= "<dd class=\"news-title\">".mb_substr($row["s_title"],0,15)."</dd>";
+	$view .= "<dd class=\"news-title\">".mb_substr($row["s_title"],0,25)."</dd>";
 	$view .= "<dd>".mb_substr($row["s_detail"],0,80)."</dd>";
 	$view .= "<div class=\"news_d\"><span>Date：</span>".$row["create_date"]."　<span>Author by</span> ".$row["author"]."</div>";
 	$view .= "</a>";

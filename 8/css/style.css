@@ -5,10 +5,6 @@ body{
     font-family:'Helvetica Neue', Helvetica, Arial, YuGothic, 'Yu Gothic', 游ゴシック体, '游ゴシック', 'ヒラギノ角ゴ ProN W3', 'Hiragino         Kaku Gothic ProN', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'MS ゴシック', 'MS Gothic', sans-serif;
 }
 
-
-
-
-
 /*---------------------
 Head
 ----------------------*/
@@ -115,6 +111,13 @@ con
     border-bottom:1px solid #bbb;
 }
 
+.all_news{
+    margin-top:10px;
+    text-align:right;
+    font-size:14px;
+    font-weight:bold;
+}
+
 .news-detail{
     width:480px;
     margin:10px auto 5px auto;
@@ -125,7 +128,7 @@ con
 //    width:500px;
     font-size:120%;
     font-weight:bold;
-    margin:0 auto 10px auto;
+    margin:0 auto;
 //    padding-left: 40px;
     line-height:1.5;
 }
@@ -235,10 +238,15 @@ footer-parts
 form-module
 ----------------------*/
 input[type="text"] {
-    width:170px;
+    width:190px;
     appearance:none;
     -webkit-appearance:none;
 }
+
+input[name="date"],input[name="s_date"],input[name="time"],input[name="s_time"]{
+    width:70px;
+}
+
 select {
     width:220px;
     appearance:none;

@@ -23,6 +23,7 @@ $pdo = null;
 echo "<div class=\"l_news\">";
 echo "<div class=\"l_title\">ニュース一覧(最新5件)</div>";
 echo $view;
+echo "<div class=\"all_news\"><a href=\"news_list.php\">－ ニュース一覧 －</a></div>";
 echo "</div>";
 
 ?>

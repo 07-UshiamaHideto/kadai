@@ -69,7 +69,7 @@ input[name="author"] {
     width:150px;
 }
 
-input[name="date"],input[name="time"] {
+input[name="date"],input[name="time"],input[name="s_date"],input[name="e_date"],input[name="s_time"],input[name="e_time"] {
     width:70px;
 }
 
@@ -78,8 +78,10 @@ input[type="checkbox"] {
     padding:3px 5px;
 }
 
-select {
+.form_a select {
     width:70px;
+    margin:5px 0;
+    padding:3px 5px;
 }
 
 .form_a textarea{
@@ -202,4 +204,22 @@ label{
 
 .logout_w{
     margin-left:450px;
+
+}
+/*---------------------
+footer
+----------------------*/
+
+.footer{
+    width:600px;
+    margin:10px auto;
+    padding:10px 0;
+    text-align:center;
+    border-top:1px solid #ccc;
+    clear:both;
+}
+
+.footer small{
+    font-size:14px;
+}
 }
