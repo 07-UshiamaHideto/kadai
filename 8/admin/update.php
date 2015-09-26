@@ -23,7 +23,7 @@ if(isset($_GET["id"])){
 		$id = $row["s_id"];
 		$title = $row["s_title"];
 		$detail = $row["s_detail"];
-		$s_index = $row["s_outline"];
+		$outline = $row["s_outline"];
 		$author = $row["author"];
 		$category = $row["category"];
 //	echo "p1:".$id.$title.$detail;
@@ -114,12 +114,13 @@ foreach($results as $row) {
 	　author： <input type="text" name="author" value="<?php echo $author ?>" size="15" /><br>
 	category： <?php echo $view ?><br>
 	detail： <br><textarea type="text" name="detail" cols="60" rows="15" /><?php echo $detail ?></textarea><br>
+	outline： <br><textarea type="text" name="outline" cols="60" rows="15" /><?php echo $outline ?></textarea><br>
 	show： <?php echo $s_flg ?>
 	show index： <?php echo $i_flg ?><br>
 	create date： <input type="text" name="date" value="<?php echo $date ?>" /> <input type="text" name="time" value="<?php echo $time ?>" /><br>
 	show date： <input type="text" name="s_date" value="<?php echo $s_date ?>" /> <input type="text" name="s_time" value="<?php echo $s_time ?>" />
 	　end date： <input type="text" name="e_date" value="<?php echo $e_date ?>" /> <input type="text" name="e_time" value="<?php echo $e_time ?>" /><br>
-	<input type="hidden" name="id" value="<?php echo $e_time ?>" />
+	<input type="hidden" name="id" value="<?php echo $id ?>" />
 	<input type="submit" />
 </form>
 </div>

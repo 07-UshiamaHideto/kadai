@@ -1,14 +1,22 @@
 <?php
 $id = $_POST["id"];
 $title = $_POST["title"];
+// echo $id."=".$title;
 $flg = $_POST["flg"];
 	if ($flg == "公開"){
 		$show_flg = 1;
 	}else{
 		$show_flg = 0;
 	}
+$ind = $_POST["index"];
+	 if ($ind == "有"){
+		$s_index = 1;
+	 }else{
+		$s_index = 0;
+	 }
 $author = $_POST["author"];
 $detail = $_POST["detail"];
+$outline = $_POST["outline"];
 $da = $_POST["date"];
 $ti = $_POST["time"];
 $ca = $_REQUEST["category"];
@@ -19,13 +27,15 @@ $category ="";
 $date = $da." ".$ti;
 
 $pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
-$sql = "UPDATE `news` SET `news_title`= :title , `news_detail` = :detail , `show_flg` = :flg , `author` = :author, `create_date` = CAST('". $date ."' AS DATETIME), `update` = sysdate(), `category` = :cate WHERE `news_id` = :id";
+$sql = "UPDATE `s_news` SET `s_title`= :title , `s_detail` = :detail , `s_outline` = :outline , `s_index` = :index , `show_flg` = :flg , `author` = :author, `create_date` = CAST('". $date ."' AS DATETIME), `update_date` = sysdate(), `category` = :cate WHERE `s_id` = :id";
 //var_dump($sql);
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $stmt->bindValue(':title', $title, PDO::PARAM_STR);
 $stmt->bindValue(':detail', $detail, PDO::PARAM_STR);
-$stmt->bindValue(':flg', $flg, PDO::PARAM_INT);
+$stmt->bindValue(':outline', $outline, PDO::PARAM_STR);
+$stmt->bindValue(':flg', $show_flg, PDO::PARAM_INT);
+$stmt->bindValue(':index', $s_index, PDO::PARAM_INT);
 $stmt->bindValue(':author', $author, PDO::PARAM_STR);
 $stmt->bindValue(':cate', $category, PDO::PARAM_STR);
 $result = $stmt->execute();
@@ -40,7 +50,7 @@ $pdo = null;
 
  include("login_j.php");
 
- $h_title="チーズアカデミー　｜　新規登録完了";
+ $h_title="Moter Sport News　　｜　新規登録完了";
  include("head.php");
  $da = date("Y-m-j");
  $ta = date("H:i:s");
