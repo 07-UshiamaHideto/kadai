@@ -5,7 +5,8 @@
 
 //echo "aaaa";
 $pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
-$sql = "SELECT * FROM s_news ORDER BY create_date DESC LIMIT 5";
+//$sql = "SELECT * FROM s_news ORDER BY create_date DESC LIMIT 5 ";
+$sql = "SELECT * FROM s_news WHERE show_flg = 1 ORDER BY create_date DESC LIMIT 5 ";
 //$sql = "SELECT * FROM enq";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();

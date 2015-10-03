@@ -1,5 +1,18 @@
 <?php
 
+$l_set = 10;
+
+
+function test($l_set) {
+
+$set_t=$l_set+3;
+echo $l_set;
+
+echo "texttest<br>";
+echo $set_t;
+
+}
+
 // HTML出力用の変数 $view を宣言
  $view = "";
 
@@ -11,10 +24,10 @@ if(isset($_GET["id"])){
 }elseif(isset($_GET["date"])){
 	$date = $_GET["date"];
 //echo "date".$date;
-	$db_set = "WHERE create_date BETWEEN '".$date." 00:00:00.000000'  AND '".$date." 23:59:59.000000' ";
+	$db_set = "WHERE create_date BETWEEN '".$date." 00:00:00.000000' AND '".$date." 23:59:59.000000' AND show_flg = 1";
 //echo $db_set;
 }else{
-	$db_set = "ORDER BY create_date DESC";
+	$db_set = "WHERE show_flg = \"1\" ORDER BY create_date DESC";
 //echo $db_set;
 }
 
@@ -81,6 +94,8 @@ foreach($results as $row) {
 	$view .= "</article>";
 
 }
+
+test($l_set);
 
 echo "<div class=\"page_l\">";
 if ($page != 1) {

@@ -1,6 +1,6 @@
 <?php
-$title = $_POST["title"];
-$flg = $_POST["flg"];
+$ev_name = $_POST["ev_name"];
+/* $flg = $_POST["flg"];
  if ($flg == "公開"){
 	$show_flg = 1;
  }else{
@@ -12,13 +12,17 @@ $ind = $_POST["index"];
  }else{
 	$s_index = 0;
  }
+ */
 $author = $_POST["author"];
 $detail = $_POST["detail"];
-$outline = $_POST["outline"];
-$da = $_POST["date"];
-$ti = $_POST["time"];
-$date = $da." ".$ti;
+$result = $_POST["result"];
 
+$s_da = $_POST["s_date"];
+$s_ti = $_POST["s_time"];
+$s_date = $s_da." ".$s_ti;
+$e_da = $_POST["e_date"];
+$e_ti = $_POST["e_time"];
+$e_date = $e_da." ".$e_ti;
 
 $ca = $_REQUEST["category"];
  $category ="";
@@ -28,16 +32,14 @@ $ca = $_REQUEST["category"];
 
 
 $pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
-$sql = "INSERT INTO `s_news`(`s_id`, `s_title`, `s_detail`, `s_outline`, `author`, `show_flg`, `s_index`, `category`, `create_date`, `update_date`) VALUES (NULL, :title, :detail, :outline, :author, :flg, :index, :cate, CAST('". $date ."' AS DATETIME), sysdate()) ";
+$sql = "INSERT INTO `s_sche`(`sc_id`, `ev_name`, `detail`, `result`, `s_date`, `e_date`) VALUES (NULL, :name, :detail, :result, CAST('". $s_date ."' AS DATETIME), CAST('". $e_date ."' AS DATETIME) ";
 var_dump($sql);
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':title', $title, PDO::PARAM_STR);
+$stmt->bindValue(':name', $ev_name, PDO::PARAM_STR);
 $stmt->bindValue(':detail', $detail, PDO::PARAM_STR);
-$stmt->bindValue(':outline', $outline, PDO::PARAM_STR);
-$stmt->bindValue(':flg', $show_flg, PDO::PARAM_INT);
-$stmt->bindValue(':index', $s_index, PDO::PARAM_INT);
-$stmt->bindValue(':author', $author, PDO::PARAM_STR);
-$stmt->bindValue(':cate', $category, PDO::PARAM_STR);
+$stmt->bindValue(':result', $oresult, PDO::PARAM_STR);
+//$stmt->bindValue(':flg', $show_flg, PDO::PARAM_INT);
+//$stmt->bindValue(':cate', $category, PDO::PARAM_STR);
 $result = $stmt->execute();
 //var_dump($result);
 if($result) {
@@ -50,7 +52,7 @@ $pdo = null;
 
 // include("login_j.php");
 
- $h_title="Moter Sport News　｜　新規登録完了";
+ $h_title="Moter Sport Schedule　｜　新規登録完了";
  include("head.php");
  $da = date("Y-m-j");
  $ta = date("H:i:s");
@@ -81,9 +83,10 @@ $pdo = null;
 	echo "<article class=\"news-detail\">";
 	echo "<dl class=\"clearfix\">";
 
-	echo "<dd class=\"news-title\">".$title."</dd>";
+	echo "<dd class=\"news-title\">".$ev_name."</dd>";
 	echo "<dd>".$detail."</dd>";
-	echo "<span class=\"section-title-news text-center\">".$date." author by ".$author."</span>";
+	echo "<dd>".$result."</dd>";
+	echo "<span class=\"section-title-news text-center\">".$s_date." - ".$e_date."</span>";
 	echo "</dl>";
 	echo "</article>";
 

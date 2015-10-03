@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.4.12
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2015 年 9 朁E26 日 19:57
--- サーバのバージョン： 5.6.26
--- PHP Version: 5.6.12
+-- Generation Time: 2015 年 9 朁E26 日 01:27
+-- サーバのバージョン： 5.6.25-log
+-- PHP Version: 5.6.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,23 +28,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `s_category` (
   `c_id` int(11) NOT NULL,
-  `ca_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `c_outline` varchar(518) COLLATE utf8_unicode_ci NOT NULL,
-  `show_flg` int(11) NOT NULL
+  `ca_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- テーブルのデータのダンプ `s_category`
 --
 
-INSERT INTO `s_category` (`c_id`, `ca_name`, `c_outline`, `show_flg`) VALUES
-(1, 'F1', '', 1),
-(2, 'SUPER GT', '', 1),
-(3, 'WTCC', '', 1),
-(4, 'WEC', '', 1),
-(5, 'WRC', '', 1),
-(6, 'MotoGP', '', 0),
-(7, 'other', '', 1);
+INSERT INTO `s_category` (`c_id`, `ca_name`) VALUES
+(1, 'F1'),
+(2, 'SUPER GT'),
+(3, 'WTCC'),
+(4, 'WEC'),
+(5, 'WRC'),
+(6, 'MotoGP'),
+(7, 'other');
 
 --
 -- Indexes for dumped tables

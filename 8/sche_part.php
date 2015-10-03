@@ -7,9 +7,11 @@
 
 $pdo = new PDO("mysql:host=localhost;dbname=cs_academy;charset=utf8", "root", "");
 $sql = "SELECT * FROM s_category ".$db_set;
-
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
+
+function sche(){
+
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //var_dump($results);
 
@@ -25,5 +27,24 @@ echo "<div class=\"cate_s\">";
 echo "<div class=\"cate_t\">スケジュール</div>";
 //echo $view;
 echo "</div>";
+
+}
+
+function result(){
+
+foreach($results as $row) {
+
+	$view .= " <a href=\"news.php?cate=".$row["c_id"]."\">".$row["ca_name"]."</a> ";
+
+}
+
+$pdo = null;
+
+echo "<div class=\"cate_s\">";
+echo "<div class=\"cate_t\">結果</div>";
+//echo $view;
+echo "</div>";
+
+}
 
 ?>
