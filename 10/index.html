@@ -12,65 +12,18 @@
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://cdn.mlkcca.com/v2.0.0/milkcocoa.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<!--     <script src="js/main.js"></script -->
+    <script src="js/main.js"></script>
     <script>
 
 var loc = "aaaa";
+var g_user = "";
+var count = 0;
+var last_message = "dummy";
 
+$(function(){
 
-fonction c_login(){
-
-
-
-}
-
-function loca(){
-
-//$(document).ready(function(){
-
-if (navigator.geolocation) {
-	var loc = "";
-	// 現在の位置情報取得を実施
-	 navigator.geolocation.getCurrentPosition(
-	// 位置情報取得成功時
-	function (pos) { 
-		lat = pos.coords.latitude;
-		lon = pos.coords.longitude;
-		loc = lat + " " +lon;
-	console.log("loc:"+loc);
-//		document.getElementById("location").innerHTML = location;
-
-	},function (error) { // 位置情報取得失敗時
-		var mess = "";
-		switch (error.code) {
-		// 位置情報取得できない場合
-			case error.POSITION_UNAVAILABLE:
-			mess = "位置情報の取得ができませんでした。";
-			break;
-		// Geolocation使用許可されない場合
-			case error.PERMISSION_DENIED:
-			mess = "位置情報取得の使用許可がされませんでした。";
-			break;
-		// タイムアウトした場合 
-			case error.PERMISSION_DENIED_TIMEOUT:
-			mess = "位置情報取得中にタイムアウトしました。";
-			break;
-		}
-		window.alert(mess);
-	});
-	console.log("out loc:"+loc);
-} else {
-	window.alert("本ブラウザではGeolocationが使えません");
-}
-
-// });
-
-}
-
-
+login_c();
 loca();
-
-    $(function() {
 
 	//1.ミルクココアインスタンスを作成
 	var milkcocoa = new MilkCocoa("onifc51uy7.mlkcca.com");
@@ -81,49 +34,67 @@ loca();
 	//3."message"データストアからメッセージを取ってくる
 	var me_s = 10;
 
-	ds.stream().sort("desc").size(me_s).next(function(err, datas) {
+	t_wr(ds, me_s);
+/*	ds.stream().sort("desc").size(me_s).next(function(err, datas) {
 //			console.log('desc');
 //			console.table(dates);
 		datas.forEach(function(data) {
 			renderMessage(data);
 		});
+	});*/
+
+	t_co(ds);
+/*
+	ds.stream().sort("desc").next(function(err, datas) {
+		datas.forEach(function(data) {
+			count++
+		});
+		$("#num").text("投稿数:"+count);
 	});
+*/
 
 	//4."message"データストアのプッシュイベントを監視
 	ds.on("push", function(e) {
 		renderMessage(e);
 	});
 
-	var last_message = "dummy";
-
+//	var last_message = "dummy";
+/*
 	function renderMessage(message) {
 		var message_html = '<p class="post-text">' + escapeHTML(message.value.content) + '</p>';
 		var date_html = '';
+//		console.log("user1:"+g_user);
+//		console.log("user2:"+message.value.user);
 		if(message.value.date) {
 			//UNIX時間から日時表示に変換toLocaleString()
-			date_html = '<p class="post-date">'+escapeHTML( new Date(message.value.date).toLocaleString())+'</p>';
+			date_html = '<p class="post-date">DATE:'+escapeHTML( new Date(message.value.date).toLocaleString())+'</p>';
 		}
-		$("#"+last_message).before('<div id="'+message.id+'" class="post">'+message_html + date_html +'</div>');
+		if(message.value.user == g_user){
+			css_html = " my_text";
+		}else{
+			css_html = " o_text";
+		}
+		$("#"+last_message).before('<div id="'+message.id+'" class="post'+ css_html +'"><span>'+ escapeHTML(message.value.user) +'</span>'+message_html + date_html +'</div>');
 		last_message = message.id;
 	}
-
+*/
 	function post() {
-
 	loca();
 	console.log("on loc:"+loc);
-
+//	console.log("on g_user:"+g_user);
 		//5."message"データストアにメッセージをプッシュする
 		var content = escapeHTML($("#content").val());
 		if (content && content !== "") {
 			ds.push({
 				title: "タイトル",
-				user: "タイトル",
+				user: g_user,
 				location: loc,
 				content: content,
 				date: new Date().getTime()
  			}, function (e) {});
 		}
 		$("#content").val("");
+		t_co(ds);
 	}
 
 	function del(){
@@ -152,9 +123,9 @@ loca();
 	});
     });
     //インジェクション対策
-    function escapeHTML(val) {
+/*    function escapeHTML(val) {
 	return $('<div>').text(val).html();
-    };
+    };*/
 
 
     </script>
@@ -168,8 +139,8 @@ loca();
 <div class="container">
 	<div class="postarea cf">
 
-		<div class="postarea-text">
-			<textarea name="" id="content" cols="30" rows="10" placeholder="Enterで投稿"></textarea>
+		<div class="postarea-text" id="u_et">
+			<textarea name="" id="content" cols="30" rows="10" placeholder="Enterで投稿"></textarea>			<div id="u_post"><span>チャット名 :</span><input type="text" name="" id="user" size="20" maxlength="20"><button id="u_post_b" class="u_post-button">登録する</button></div>
 		</div>
 
 		<div class="postarea-share cf">
@@ -190,10 +161,9 @@ loca();
 
 <div id="messages" class="content">
 	<div id="dummy"></div>
+	<div id="num"></div>
 </div>
 
 <p class="footer"><strong>Powered by <a href="http://mlkcca.com/">Milkcocoa</a></strong></p>
 </body>
 </html>
-
-
