@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta property="og:title" content="Milkcocoaで作ったリアルタイムチャット" />
+    <meta property="og:type" content="chat" />
+    <meta property="og:description" content="BaaS（Milkcocoa）で作られたリアルタイムチャット" />
+    <title>Milkcocoaで作ったリアルタイムチャット</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://cdn.mlkcca.com/v2.0.0/milkcocoa.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="js/main.js"></script>
+    <script src="js/maps.js"></script>
+    <script>
+
+var loc = "";var lat = "";var lon = "";var lat2 = "";var lon2 = "";
+var map;var marker;
+var g_user = "";
+var count = 0;
+var last_message = "dummy";
+
+$(function(){
+
+login_c();
+loca();
+console.log("main loc:"+loc);
+
+	//1.ミルクココアインスタンスを作成
+	var milkcocoa = new MilkCocoa("onifc51uy7.mlkcca.com");
+
+	//2."message"データストアを作成
+	var ds = milkcocoa.dataStore("chat");
+
+	//3."message"データストアからメッセージを取ってくる
+	var me_s = 10;
+
+	t_wr(ds, me_s);
+/*	ds.stream().sort("desc").size(me_s).next(function(err, datas) {
+//			console.log('desc');
+//			console.table(dates);
+		datas.forEach(function(data) {
+			renderMessage(data);
+		});
+	});*/
+
+	t_co(ds);
+/*
+	ds.stream().sort("desc").next(function(err, datas) {
+		datas.forEach(function(data) {
+			count++
+		});
+		$("#num").text("投稿数:"+count);
+	});
+*/
+
+	//4."message"データストアのプッシュイベントを監視
+	ds.on("push", function(e,ds) {
+		renderMessage(e);
+//			t_co(ds);
+	});
+	ds.on("remove", function(e) {
+		window.location.reload();
+	});
+
+
+//	var last_message = "dummy";
+/*
+	function renderMessage(message) {
+		var message_html = '<p class="post-text">' + escapeHTML(message.value.content) + '</p>';
+		var date_html = '';
+//		console.log("user1:"+g_user);
+//		console.log("user2:"+message.value.user);
+		if(message.value.date) {
+			//UNIX時間から日時表示に変換toLocaleString()
+			date_html = '<p class="post-date">DATE:'+escapeHTML( new Date(message.value.date).toLocaleString())+'</p>';
+		}
+		if(message.value.user == g_user){
+			css_html = " my_text";
+		}else{
+			css_html = " o_text";
+		}
+		$("#"+last_message).before('<div id="'+message.id+'" class="post'+ css_html +'"><span>'+ escapeHTML(message.value.user) +'</span>'+message_html + date_html +'</div>');
+		last_message = message.id;
+	}
+*/
+//	post(ds);
+	function post() {
+	loca();
+	console.log("on loc:"+loc);
+//	console.log("on g_user:"+g_user);
+		//5."message"データストアにメッセージをプッシュする
+		var content = escapeHTML($("#content").val());
+		if (content && content !== "") {
+			ds.push({
+				title: "タイトル",
+				user: g_user,
+				location: loc,
+				content: content,
+				date: new Date().getTime()
+ 			}, function (e) {});
+		}
+		$("#content").val("");
+		t_co(ds);
+	}
+
+		/*
+	function del(){
+//	var m_id = "";
+	ds.stream().sort("desc").next(function(err, datas) {
+//		console.log('desc');
+//		console.table(dates);
+		datas.forEach(function(data) {
+		console.log("g_user:"+g_user); 
+		var m_id = data.id;
+		var c_na = data.value.user;
+		if (g_user==c_na){
+
+			console.log("id:"+m_id+" value.user:"+c_na);
+			ds.remove(m_id, function(err, removed){
+			//サーバでの削除操作が完了
+			console.log("del"+removed);
+			});
+		}
+		});
+		/*
+		{
+		id: 'test'
+		}
+		*/
+		/*
+		}, function(err) {
+		//"Permission denied" or "limit exceeded"
+		});
+
+	} 
+	*/
+
+	$('#del_my').click(function () {
+		$("#del_my").css("color","#f00");
+		del(ds);
+		t_co(ds);
+	})
+
+//	$('#del_all').click(function () {
+//		del(ds);
+//	})
+
+	$('#post').click(function () {
+		post();
+	})
+	$('#content').keydown(function (e) {
+		if (e.which == 13){
+			post();
+			return false;
+		}
+	});
+    });
+    //インジェクション対策
+/*    function escapeHTML(val) {
+	return $('<div>').text(val).html();
+    };*/
+
+
+    </script>
+</head>
+
+<body>
+<div class="header">
+	<h1 class="logo">Realtime CHAT</h1>
+</div>
+
+<div class="container">
+	<div class="postarea cf">
+
+		<div class="postarea-text" id="u_et">
+			<textarea name="" id="content" cols="30" rows="10" placeholder="Enterで投稿"></textarea>			<div id="u_post"><span>チャット名 :</span><input type="text" name="" id="user" size="20" maxlength="20"><button id="u_post_b" class="u_post-button">登録する</button></div>
+		</div>
+
+		<div class="postarea-share cf">
+			<p>このチャットをシェアする！</p>
+			<div class="postarea-share-button cf">
+			<script>
+				var url = encodeURIComponent(location.href);
+				document.write('<iframe src="//www.facebook.com/plugins/like.php?href='+url+'&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:20px;" allowTransparency="true"></iframe>');
+			</script>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ja" data-count="none">ツイート</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			</div>
+		</div>
+
+	<button id="post" class="postarea-button">投稿する</button>
+	</div>
+</div>
+
+<div id="maps">
+</div>
+
+<div id="messages" class="content">
+	<div id="del_p"></div>
+	<div id="mes">
+	<div id="dummy"></div>
+	</div>
+	<div id="num"></div>
+</div>
+
+<p class="footer"><strong>Powered by <a href="http://mlkcca.com/">Milkcocoa</a></strong></p>
+</body>
+</html>
