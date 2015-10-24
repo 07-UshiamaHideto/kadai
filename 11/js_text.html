@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>JSONPでレストラン検索APIの結果を取得するサンプルコード</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="js/maps.js"></script>
+<script>
+
+$(document).ready(function(){
+loc = "";lat = "";lon = "";
+var map;var marker;
+
+//lat = 35.65;lon = 139.75;
+loca();
+
+console.log("g loc:"+loc+" lat:"+lat+" lon:"+lon);
+
+var my_key = "62ddcac68a35ab4f36a6ce2d59bf46b1";
+var url = 'http://api.gnavi.co.jp/RestSearchAPI/20150630/?callback=?';
+console.log("p loc:"+loc+" lat:"+lat+" lon:"+lon);
+var params = {
+	keyid: my_key,
+	format: 'json',
+	latitude:lat,
+	longitude: lon,
+	range: 1
+};
+
+
+
+console.log("t lat:"+lat+" lon:"+lon+" loc:"+loc);
+var showResult = function(result){
+	if ( result.total_hit_count > 0 ) {
+		var res = '';
+		$("#e_search").before( result.total_hit_count + '件の結果が見つかりました。\n' );
+		for ( var i in result.rest ){
+			res += "<div class=\"shop_area\">";
+			res += "<a href=\""+ result.rest[i].url + "\">";
+//			if(result.rest[i].image_url.shop_image2 !== "[object Object]" ){
+//				res += "<img src=\""+ result.rest[i].image_url.shop_image2 + "\" height=\"30p\">";
+//			}
+			res += result.rest[i].name + ' ' + result.rest[i].category + '<br>';
+			res += result.rest[i].access.station + ' ' + result.rest[i].access.walk + '分\n' + '<br>';
+			res += ' 緯度 ' + result.rest[i].latitude + ' 経度 ' + result.rest[i].longitude; 
+			res += "</a></div>";
+	//		res += result.rest[i].id + ' ' + result.rest[i].name + ' ' + result.rest[i].access.line + ' ' + result.rest[i].access.station + ' ' + result.rest[i].access.walk + '分\n' + ' 緯度 ' + result.rest[i].latitude + ' 経度 ' + result.rest[i].longitude;
+			lat2=result.rest[i].latitude;lon2=result.rest[i].longitude;
+			setMap2(lat2, lon2);
+		}
+		$("#e_search").html(res);
+	} else {
+		alert( '検索結果が見つかりませんでした。' );
+	}
+}
+
+$(document).on('click', '.js--apply', function(){
+	loca();
+var params = {
+	keyid: my_key,
+	format: 'json',
+	latitude:lat,
+	longitude: lon,
+	range: 1
+};
+	console.log("c loc:"+loc+" lat:"+lat+" lon:"+lon);
+	$("#maps").after( '現時点 緯度：' + lat + ' 経度：' + lon + '\n' );
+	params.keyid = my_key;
+	$.getJSON(url, params, function(result){
+		showResult(result);
+	});
+});
+
+});
+
+//})(jQuery);
+ 
+</script>
+</head>
+<body>
+
+<br>
+<div id="maps"></div>
+<br>
+<div id="e_search"></div>
+<input type="text" placeholder="enter your access key here" class="js--key"><input type="button" value="apply" class="js--apply" />
+<br>
+<a href="http://www.gnavi.co.jp/"> 
+<img src="http://apicache.gnavi.co.jp/image/rest/b/api_155_20.gif" width="155" height="20" border="0" alt="グルメ情報検索サイト　ぐるなび">
+</a>
+
+</body>
+</html>
+ 

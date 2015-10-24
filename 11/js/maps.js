@@ -1,12 +1,8 @@
 function loca(){
 
-
 //$(function(){
-//console.log("1 loc:"+loc);
 if (navigator.geolocation) {
 
-
-//console.log("2 loc:"+loc);
 //	現在の位置情報取得を実施
 navigator.geolocation.getCurrentPosition(
 //	位置情報取得成功時
@@ -14,29 +10,29 @@ function (pos) {
 lat = pos.coords.latitude;
 lon = pos.coords.longitude;
 loc = lat + " " +lon;
-console.log("loc:"+loc+" lat:"+lat+" lon:"+lon);
+console.log("a loc:"+loc+" lat:"+lat+" lon:"+lon);
 //	document.getElementById("location").innerHTML = loc;
 	setMap(lat, lon);
 
 },function (error) { // 位置情報取得失敗時
-var mess = "";
-switch (error.code) {
-//	位置情報取得できない場合
-case error.POSITION_UNAVAILABLE:
-	mess = "位置情報の取得ができませんでした。";
-	break;
-//	Geolocation使用許可されない場合
-case error.PERMISSION_DENIED:
-	mess = "位置情報取得の使用許可がされませんでした。";
-	break;
-//	タイムアウトした場合 
-case error.PERMISSION_DENIED_TIMEOUT:
-	mess = "位置情報取得中にタイムアウトしました。";
-	break;
-}
+	var mess = "";
+	switch (error.code) {
+	//	位置情報取得できない場合
+	case error.POSITION_UNAVAILABLE:
+		mess = "位置情報の取得ができませんでした。";
+		break;
+	//	Geolocation使用許可されない場合
+	case error.PERMISSION_DENIED:
+		mess = "位置情報取得の使用許可がされませんでした。";
+		break;
+	//	タイムアウトした場合 
+	case error.PERMISSION_DENIED_TIMEOUT:
+		mess = "位置情報取得中にタイムアウトしました。";
+		break;
+	}
 	window.alert(mess);
 });
-//	console.log("3 loc:"+loc+" lat:"+lat+" lon:"+lon);
+console.log("b loc:"+loc+" lat:"+lat+" lon:"+lon);
 } else {
 	window.alert("本ブラウザではGeolocationが使えません");
 }
@@ -60,25 +56,32 @@ marker = new google.maps.Marker({
 	title: "自分"
 });
 
-marker2 = new google.maps.Marker({
-	position: new google.maps.LatLng(lat2,lat2),
+/* markers = new google.maps.Marker({
+	position: latlng,
 	map: map ,
 	title: "ほかの人"
-});
+}); */
 
 }
 
 //地図上に現在地を表示
 function setMap(lat, lon){
+console.log("c loc:"+loc+" lat:"+lat+" lon:"+lon);
 	var pos = new google.maps.LatLng(lat, lon);
 	map.setCenter(pos);
 	marker.setPosition(pos);
 };
 
 function setMap2(lat2, lon2){
-	var pos = new google.maps.LatLng(lat2, lon2);
+//	var im = m;
+//	console.log("map2 lat:"+lat2+" lon:"+lon2+" m:"+m+" im:"+im);
+	var latlng = new google.maps.LatLng(lat2, lon2);
 //	map.setCenter(pos);
-	marker2.setPosition(pos);
+	markers = new google.maps.Marker({
+	position: latlng,
+	map: map ,
+	title: "ほかの人"
+});
 };
 
 // }

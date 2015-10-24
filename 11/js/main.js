@@ -93,6 +93,7 @@ ds.stream().sort("desc").size(me_s).next(function(err, datas) {
 //メッセージ書き込み
 
 function renderMessage(message) {
+
 var message_html = '<p class="post-text">' + escapeHTML(message.value.content) + '</p>';
 var date_html = '';
 var loc_html = '';
@@ -108,13 +109,15 @@ if(message.value.location) {
 	console.log("f_loc:"+loc_m[0]+" "+loc_m[1]);
 	setMap2(loc_m[0], loc_m[1]);
 	loc_html = '<p class="post-loc">Locatin:'+escapeHTML(message.value.location)+'</p>';
+	m++;
 }
 if(message.value.user == g_user){
 	css_html = " my_text";
 }else{
 	css_html = " o_text";
 }
-$("#"+last_message).before('<div id="'+message.id+'" class="post'+ css_html +'"><span>'+ escapeHTML(message.value.user) +'</span>'+message_html + loc_html + date_html +'</div>');
+$("#"+last_message).before('<div id="'+message.id+'" class="post'+ css_html +'"><span>'+ escapeHTML(message.value.user) +'</span>'+message_html + date_html +'</div>');
+//$("#"+last_message).before('<div id="'+message.id+'" class="post'+ css_html +'"><span>'+ escapeHTML(message.value.user) +'</span>'+message_html + loc_html + date_html +'</div>');
 last_message = message.id;
 }
 
